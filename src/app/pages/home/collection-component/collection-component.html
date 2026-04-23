@@ -1,0 +1,45 @@
+<section class="py-16 px-6 bg-[#f8f9fa] text-black">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
+      Explora Nuestras Colecciones
+    </h2>
+    <p class="text-neutral-500 max-w-2xl mx-auto">
+      Desde anime hasta gaming, encuentra la estatua perfecta para tu colección
+    </p>
+  </div>
+
+  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    @for (item of collections; track item.title) {
+      <div
+        class="group relative h-80 rounded-3xl overflow-hidden cursor-pointer transition-all hover:-translate-y-2 shadow-xl"
+      >
+        <div
+          class="absolute inset-0 bg-linear-to-b {{
+            item.gradient
+          }} opacity-90 transition-opacity group-hover:opacity-100"
+        ></div>
+
+        <div class="relative h-full p-8 flex flex-col justify-end items-start text-white">
+          <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <span
+              class="text-8xl opacity-10 group-hover:opacity-20 transition-opacity transform group-hover:scale-110 duration-500"
+            >
+              {{ item.icon }}
+            </span>
+          </div>
+
+          <h3 class="text-2xl font-bold mb-2">{{ item.title }}</h3>
+          <p class="text-sm text-neutral-400 mb-6 leading-relaxed">
+            {{ item.description }}
+          </p>
+
+          <span
+            class="px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-xs font-medium"
+          >
+            {{ item.count }} productos
+          </span>
+        </div>
+      </div>
+    }
+  </div>
+</section>

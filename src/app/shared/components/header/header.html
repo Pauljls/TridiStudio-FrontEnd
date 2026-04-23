@@ -1,17 +1,88 @@
-<div class="bg-white flex h-20 w-full items-center justify-between px-6 shadow-2xl">
-  <span>
-    <a class="font-bold text-xl">TridiStudio</a>
-  </span>
-  <span>
-    <ul class="flex gap-4">
-      <li>Inicio</li>
-      <li>Catalogo</li>
-      <li>Personalizados</li>
-      <li>Sobre Nosotros</li>
-      <li>Contacto</li>
+<nav
+  class="bg-white/90 backdrop-blur-md flex h-20 w-full items-center justify-between px-6 shadow-sm fixed top-0 left-0 z-[100]"
+>
+  <div class="relative z-[110]">
+    <a class="font-black text-2xl tracking-tighter cursor-pointer text-black">
+      TRIDI<span class="text-neutral-500">STUDIO</span>
+    </a>
+  </div>
+
+  <div class="hidden lg:block">
+    <ul class="flex gap-8 font-medium text-sm text-neutral-600">
+      <li class="hover:text-black cursor-pointer transition-colors">Inicio</li>
+      <li class="hover:text-black cursor-pointer transition-colors">Catálogo</li>
+      <li class="hover:text-black cursor-pointer transition-colors">Personalizados</li>
+      <li class="hover:text-black cursor-pointer transition-colors">Sobre Nosotros</li>
+      <li class="hover:text-black cursor-pointer transition-colors">Contacto</li>
     </ul>
-  </span>
-  <span>
-    <a>Carrito</a>
-  </span>
-</div>
+  </div>
+
+  <div class="flex items-center gap-4 relative z-[110]">
+    <button
+      class="hidden sm:flex font-bold text-xs bg-black text-white px-5 py-2.5 rounded-full hover:bg-neutral-800 transition-all"
+    >
+      Carrito (0)
+    </button>
+
+    <button
+      (click)="toggleMenu()"
+      class="lg:hidden p-2 flex flex-col gap-1.5 focus:outline-none"
+      aria-label="Toggle Menu"
+    >
+      <div
+        class="w-6 h-0.5 bg-black transition-all duration-300"
+        [class.rotate-45]="isMenuOpen()"
+        [class.translate-y-2]="isMenuOpen()"
+      ></div>
+      <div
+        class="w-6 h-0.5 bg-black transition-all duration-300"
+        [class.opacity-0]="isMenuOpen()"
+      ></div>
+      <div
+        class="w-6 h-0.5 bg-black transition-all duration-300"
+        [class.-rotate-45]="isMenuOpen()"
+        [class.-translate-y-2]="isMenuOpen()"
+      ></div>
+    </button>
+  </div>
+
+  <div
+    class="fixed top-0 left-0 w-screen h-screen bg-white transition-transform duration-500 ease-in-out lg:hidden z-[105]"
+    [class.translate-x-0]="isMenuOpen()"
+    [class.translate-x-full]="!isMenuOpen()"
+  >
+    <div
+      class="flex flex-col items-center justify-center w-full h-full border-t border-neutral-100"
+    >
+      <ul class="flex flex-col items-center gap-8">
+        <li>
+          <a (click)="closeMenu()" class="text-2xl font-black text-black py-2 block">Inicio</a>
+        </li>
+        <li>
+          <a (click)="closeMenu()" class="text-2xl font-black text-black py-2 block">Catálogo</a>
+        </li>
+        <li>
+          <a (click)="closeMenu()" class="text-2xl font-black text-black py-2 block"
+            >Personalizados</a
+          >
+        </li>
+        <li>
+          <a (click)="closeMenu()" class="text-2xl font-black text-black py-2 block"
+            >Sobre Nosotros</a
+          >
+        </li>
+        <li>
+          <a (click)="closeMenu()" class="text-2xl font-black text-black py-2 block">Contacto</a>
+        </li>
+      </ul>
+
+      <div class="mt-20">
+        <p class="text-[10px] text-neutral-400 uppercase tracking-widest font-bold">
+          Tridi Studio Perú
+        </p>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="h-20"></div>

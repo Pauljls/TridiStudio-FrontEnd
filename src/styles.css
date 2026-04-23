@@ -2,3 +2,23 @@
 
 @import 'tailwindcss';
 @plugin "daisyui";
+
+@theme {
+  /* Definimos Poppins como la fuente sans principal del proyecto */
+  --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    /* Aplicamos Poppins a todo el documento por defecto */
+    font-family: var(--font-sans);
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-white text-slate-900;
+    margin: 0;
+  }
+}
