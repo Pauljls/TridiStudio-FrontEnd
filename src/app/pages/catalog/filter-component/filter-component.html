@@ -1,0 +1,49 @@
+<aside
+  class="fixed inset-y-0 left-0 z-[120] w-80 bg-[#111111] p-8 overflow-y-auto transition-transform duration-300 lg:static lg:block lg:w-64 lg:bg-transparent lg:p-0 lg:z-auto lg:translate-x-0"
+  [class.-translate-x-full]="!isOpen()"
+  [class.translate-x-0]="isOpen()"
+>
+  <div class="flex justify-between items-center mb-8 lg:hidden">
+    <h2 class="text-xl font-black text-white">Filtros</h2>
+    <button (click)="close.emit()" class="p-2 text-neutral-400 hover:text-white">✕</button>
+  </div>
+
+  <div class="mb-10">
+    <h3 class="text-sm font-bold uppercase tracking-widest text-neutral-500 mb-5">Categorías</h3>
+    <ul class="space-y-4 text-sm font-medium">
+      <li class="flex justify-between text-white cursor-pointer">
+        <span>Todo el Catálogo</span> <span class="text-neutral-600">(124)</span>
+      </li>
+      <li class="flex justify-between text-neutral-400 hover:text-white cursor-pointer">
+        <span>Art Toys & Anime</span> <span class="text-neutral-600">(45)</span>
+      </li>
+      <li class="flex justify-between text-neutral-400 hover:text-white cursor-pointer">
+        <span>Zona Gamer</span> <span class="text-neutral-600">(38)</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="mb-10">
+    <h3 class="text-sm font-bold uppercase tracking-widest text-neutral-500 mb-5">Precio</h3>
+    <div class="flex items-center gap-3">
+      <input
+        type="text"
+        placeholder="Min"
+        class="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-2 text-sm text-center text-white focus:outline-none"
+      />
+      <span class="text-neutral-600">-</span>
+      <input
+        type="text"
+        placeholder="Max"
+        class="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-2 text-sm text-center text-white focus:outline-none"
+      />
+    </div>
+  </div>
+</aside>
+
+@if (isOpen()) {
+  <div
+    (click)="close.emit()"
+    class="fixed inset-0 bg-black/80 z-[110] lg:hidden backdrop-blur-sm"
+  ></div>
+}

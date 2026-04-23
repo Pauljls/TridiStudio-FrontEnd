@@ -1,9 +1,10 @@
 import { Component, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-header',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './header.html',
 })
 export class Header {

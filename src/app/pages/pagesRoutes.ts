@@ -12,7 +12,7 @@ export const PAGES_ROUTES: Routes = [
         redirectTo: 'home', // Redirige a /home para que coincida con el siguiente hijo
       },
       {
-        path: 'home',
+        path: '',
         loadComponent: () => import('./home/home').then((m) => m.Home),
       },
       {
