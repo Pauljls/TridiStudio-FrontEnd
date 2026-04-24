@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BEST_SELLERS } from '../../../core/constants/products';
+import { BEST_SELLERS } from '@core/constants/products';
 import { ProductCardComponent } from './product-card-component/product-card-component';
 
 @Component({

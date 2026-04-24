@@ -1,12 +1,12 @@
 <div class="min-h-screen bg-black text-white pt-32 pb-24 px-6">
   <div class="max-w-7xl mx-auto">
-    <app-header-component
+    <app-catalog-header-component
       [totalProducts]="products().length"
       (openMobileFilters)="toggleFilters()"
     />
 
     <div class="flex flex-col lg:flex-row gap-12">
-      <app-filter-component [isOpen]="isMobileFilterOpen()" (close)="toggleFilters()" />
+      <app-catalog-filters-component [isOpen]="isMobileFilterOpen()" (close)="toggleFilters()" />
 
       <div class="flex-1">
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">

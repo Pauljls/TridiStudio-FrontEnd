@@ -24,8 +24,16 @@ export const PAGES_ROUTES: Routes = [
         loadComponent: () => import('./product-detail/product-detail').then((m) => m.ProductDetail),
       },
       {
-        path: 'custom-order',
-        loadComponent: () => import('./custom-order/custom-order').then((m) => m.CustomOrder),
+        path: 'about',
+        loadComponent: () => import('./about/about').then((m) => m.About),
+      },
+      {
+        path: 'contact',
+        loadComponent: () => import('./contact/contact').then((m) => m.Contact),
+      },
+      {
+        path: 'cart',
+        loadComponent: () => import('./cart/cart').then((m) => m.Cart),
       },
     ],
   },

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { COLLECTIONS } from '../../../core/constants/collections';
+import { COLLECTIONS } from '@core/constants/collections';
 @Component({
   selector: 'app-collection-component',
   imports: [],
@@ -9,4 +9,3 @@ import { COLLECTIONS } from '../../../core/constants/collections';
 export class CollectionComponent {
   public collections = COLLECTIONS;
 }
-  

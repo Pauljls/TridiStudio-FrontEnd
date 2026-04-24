@@ -1,12 +1,12 @@
 import { Component, input, output } from '@angular/core';
 
 @Component({
-  selector: 'app-filter-component',
+  selector: 'app-catalog-filters-component',
   imports: [],
-  templateUrl: './filter-component.html',
+  templateUrl: './catalog-filters-component.html',
   styles: ``,
 })
-export class FilterComponent {
+export class CatalogFiltersComponent {
   isOpen = input.required<boolean>();
   close = output<void>();
 }

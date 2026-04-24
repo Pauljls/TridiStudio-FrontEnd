@@ -1,0 +1,134 @@
+<div class="min-h-screen bg-black text-white pt-32 pb-24 px-6">
+  <div class="max-w-7xl mx-auto">
+    <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-12">Tu Carrito</h1>
+
+    @if (cartItems().length === 0) {
+      <div
+        class="flex flex-col items-center justify-center py-20 text-center border border-neutral-900 rounded-[2rem] bg-[#0a0a0a]"
+      >
+        <div
+          class="w-24 h-24 bg-neutral-900 rounded-full flex items-center justify-center text-4xl mb-6"
+        >
+          🛒
+        </div>
+        <h2 class="text-2xl font-bold mb-4">Tu carrito está vacío</h2>
+        <p class="text-neutral-500 mb-8 max-w-md">
+          Parece que aún no has añadido ninguna de nuestras estatuas a tu colección.
+        </p>
+        <button
+          routerLink="/catalog"
+          class="px-8 py-4 bg-white text-black font-bold rounded-xl hover:bg-neutral-200 transition-colors"
+        >
+          Explorar Catálogo
+        </button>
+      </div>
+    } @else {
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-8 flex flex-col gap-6">
+          @for (item of cartItems(); track item.id) {
+            <div
+              class="flex flex-col sm:flex-row gap-6 p-4 sm:p-6 bg-[#111111] border border-neutral-800 rounded-3xl relative group"
+            >
+              <div
+                class="w-full sm:w-32 aspect-square bg-linear-to-br from-[#2a2a2a] to-[#111111] rounded-2xl flex items-center justify-center text-5xl shadow-inner shrink-0"
+              >
+                {{ item.image }}
+              </div>
+
+              <div class="flex flex-col justify-between flex-1 gap-4">
+                <div class="flex justify-between items-start gap-4">
+                  <div>
+                    <h3 class="text-lg font-bold">{{ item.name }}</h3>
+                    <p class="text-sm text-neutral-500 mt-1">Tamaño: {{ item.size }}</p>
+                  </div>
+                  <button
+                    (click)="removeItem(item.id)"
+                    class="text-neutral-500 hover:text-red-500 transition-colors p-2"
+                    title="Eliminar pieza"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+
+                <div class="flex justify-between items-end">
+                  <div class="flex items-center bg-black border border-neutral-800 rounded-lg">
+                    <button
+                      (click)="updateQuantity(item.id, -1)"
+                      class="w-10 h-10 flex items-center justify-center text-neutral-400 hover:text-white transition-colors"
+                    >
+                      −
+                    </button>
+                    <span class="w-8 text-center font-bold text-sm">{{ item.quantity }}</span>
+                    <button
+                      (click)="updateQuantity(item.id, 1)"
+                      class="w-10 h-10 flex items-center justify-center text-neutral-400 hover:text-white transition-colors"
+                    >
+                      +
+                    </button>
+                  </div>
+
+                  <p class="text-xl font-black text-white">S/ {{ item.price * item.quantity }}</p>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+
+        <div
+          class="lg:col-span-4 bg-[#111111] border border-neutral-800 rounded-3xl p-8 lg:sticky lg:top-32"
+        >
+          <h2 class="text-xl font-bold mb-6">Resumen del Pedido</h2>
+
+          <div class="flex flex-col gap-4 text-sm mb-6 border-b border-neutral-800 pb-6">
+            <div class="flex justify-between text-neutral-400">
+              <span>Subtotal ({{ cartItems().length }} piezas)</span>
+              <span class="text-white font-medium">S/ {{ subtotal() }}</span>
+            </div>
+            <div class="flex justify-between text-neutral-400">
+              <span>Envío (A todo el Perú)</span>
+              <span class="text-white font-medium">S/ {{ shipping() }}</span>
+            </div>
+          </div>
+
+          <div class="flex justify-between items-center mb-8">
+            <span class="text-lg font-bold">Total</span>
+            <span class="text-3xl font-black text-white">S/ {{ total() }}</span>
+          </div>
+
+          <button
+            class="w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2 mb-4"
+          >
+            Proceder al Pago
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
+              ></path>
+            </svg>
+          </button>
+
+          <div class="flex items-center justify-center gap-2 text-xs text-neutral-500">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8V7a4 4 0 00-8 0v4h8z"
+              ></path>
+            </svg>
+            Pago 100% seguro y encriptado
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

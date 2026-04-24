@@ -1,12 +1,12 @@
 import { Component, input, output } from '@angular/core';
 
 @Component({
-  selector: 'app-header-component',
+  selector: 'app-catalog-header-component',
   imports: [],
-  templateUrl: './header-component.html',
+  templateUrl: './catalog-header-component.html',
   styles: ``,
 })
-export class HeaderComponent {
+export class CatalogHeaderComponent {
   totalProducts = input.required<number>();
   openMobileFilters = output<void>();
 }

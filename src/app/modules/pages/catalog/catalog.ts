@@ -1,13 +1,14 @@
 import { Component, effect, signal } from '@angular/core';
-import { BEST_SELLERS } from '../../core/constants/products';
+import { BEST_SELLERS } from '@core/constants/products';
+import { CatalogFiltersComponent } from './catalog-filters-component/catalog-filters-component';
+import { CatalogHeaderComponent } from './catalog-header-component/catalog-header-component';
 import { ProductCardComponent } from '../home/best-selling-component/product-card-component/product-card-component';
-import { FilterComponent } from "./filter-component/filter-component";
-import { HeaderComponent } from "./header-component/header-component";
 
 @Component({
   selector: 'app-catalog',
-  imports: [ProductCardComponent, FilterComponent, HeaderComponent],
+  imports: [CatalogFiltersComponent, CatalogHeaderComponent, ProductCardComponent],
   templateUrl: './catalog.html',
+  styles: ``,
 })
 export class Catalog {
   products = signal(BEST_SELLERS);

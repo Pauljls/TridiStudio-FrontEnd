@@ -1,6 +1,6 @@
-import { Component, signal, effect } from '@angular/core';
+import { Component, signal, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +8,7 @@ import { RouterLink } from "@angular/router";
   templateUrl: './header.html',
 })
 export class Header {
-  // Signal para el estado del menú
+  private router = inject(Router);
   isMenuOpen = signal(false);
 
   constructor() {
@@ -28,5 +28,8 @@ export class Header {
 
   closeMenu() {
     this.isMenuOpen.set(false);
+  }
+  linkToCart() {
+    this.router.navigate(['/cart']);
   }
 }

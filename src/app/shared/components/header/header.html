@@ -1,8 +1,8 @@
 <nav
-  class="bg-white/90 backdrop-blur-md flex h-20 w-full items-center justify-between px-6 shadow-sm fixed top-0 left-0 z-[100]"
+  class="bg-white/90 backdrop-blur-md flex h-20 w-full items-center justify-between px-6 shadow-sm fixed top-0 left-0 z-100"
 >
-  <div class="relative z-[110]">
-    <a class="font-black text-2xl tracking-tighter cursor-pointer text-black">
+  <div class="relative z-110">
+    <a class="font-black text-2xl tracking-tighter cursor-pointer text-black" routerLink="/">
       TRIDI<span class="text-neutral-500">STUDIO</span>
     </a>
   </div>
@@ -15,15 +15,19 @@
       <li class="hover:text-black cursor-pointer transition-colors">
         <a routerLink="/catalog">Catálogo</a>
       </li>
-      <li class="hover:text-black cursor-pointer transition-colors"><a>Personalizados</a></li>
-      <li class="hover:text-black cursor-pointer transition-colors"><a>Sobre Nosotros</a></li>
-      <li class="hover:text-black cursor-pointer transition-colors"><a>Contacto</a></li>
+      <li class="hover:text-black cursor-pointer transition-colors" routerLink="about">
+        <a>Sobre Nosotros</a>
+      </li>
+      <li class="hover:text-black cursor-pointer transition-colors">
+        <a routerLink="contact">Contacto</a>
+      </li>
     </ul>
   </div>
 
-  <div class="flex items-center gap-4 relative z-[110]">
+  <div class="flex items-center gap-4 relative z-110">
     <button
-      class="hidden sm:flex font-bold text-xs bg-black text-white px-5 py-2.5 rounded-full hover:bg-neutral-800 transition-all"
+      (click)="linkToCart()"
+      class="hidden sm:flex font-bold text-xs bg-black text-white px-5 py-2.5 rounded-full hover:bg-neutral-800 transition-all hover:cursor-pointer"
     >
       Carrito (0)
     </button>
@@ -51,7 +55,7 @@
   </div>
 
   <div
-    class="fixed top-0 left-0 w-screen h-screen bg-white transition-transform duration-500 ease-in-out lg:hidden z-[105]"
+    class="fixed top-0 left-0 w-screen h-screen bg-white transition-transform duration-500 ease-in-out lg:hidden z-105"
     [class.translate-x-0]="isMenuOpen()"
     [class.translate-x-full]="!isMenuOpen()"
   >
@@ -60,23 +64,42 @@
     >
       <ul class="flex flex-col items-center gap-8">
         <li>
-          <a (click)="closeMenu()" class="text-2xl font-black text-black py-2 block">Inicio</a>
-        </li>
-        <li>
-          <a (click)="closeMenu()" class="text-2xl font-black text-black py-2 block">Catálogo</a>
-        </li>
-        <li>
-          <a (click)="closeMenu()" class="text-2xl font-black text-black py-2 block"
-            >Personalizados</a
+          <a (click)="closeMenu()" class="text-2xl font-black text-black py-2 block" routerLink="/"
+            >Inicio</a
           >
         </li>
         <li>
-          <a (click)="closeMenu()" class="text-2xl font-black text-black py-2 block"
+          <a
+            (click)="closeMenu()"
+            class="text-2xl font-black text-black py-2 block"
+            routerLink="catalog"
+            >Catálogo</a
+          >
+        </li>
+
+        <li>
+          <a
+            (click)="closeMenu()"
+            class="text-2xl font-black text-black py-2 block"
+            routerLink="about"
             >Sobre Nosotros</a
           >
         </li>
         <li>
-          <a (click)="closeMenu()" class="text-2xl font-black text-black py-2 block">Contacto</a>
+          <a
+            (click)="closeMenu()"
+            class="text-2xl font-black text-black py-2 block"
+            routerLink="contact"
+            >Contacto</a
+          >
+        </li>
+        <li>
+          <a
+            (click)="closeMenu()"
+            class="text-2xl font-black text-black py-2 block"
+            routerLink="cart"
+            >Carrito</a
+          >
         </li>
       </ul>
 
