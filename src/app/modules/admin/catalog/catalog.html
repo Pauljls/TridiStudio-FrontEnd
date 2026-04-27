@@ -1,0 +1,353 @@
+<div class="flex flex-col gap-8 text-white animate-fade-in">
+  <header class="flex justify-between items-end">
+    <div>
+      <h2 class="text-3xl font-bold tracking-tight">Catálogo de Estatuas</h2>
+      <p class="text-neutral-500 mt-1 font-medium">
+        Gestiona tu inventario, precios base y tamaños.
+      </p>
+    </div>
+
+    @if (!isFormOpen()) {
+      <button
+        (click)="toggleForm()"
+        class="bg-white text-black font-bold px-6 py-3 rounded-xl hover:bg-neutral-200 transition-transform active:scale-95 flex items-center gap-2"
+      >
+        + Añadir Producto
+      </button>
+    }
+  </header>
+
+  @if (!isFormOpen()) {
+    <div class="bg-[#111111] border border-neutral-800 rounded-3xl overflow-hidden shadow-2xl">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left whitespace-nowrap">
+          <thead class="bg-[#0a0a0a] text-neutral-500 text-xs uppercase tracking-widest">
+            <tr>
+              <th class="px-6 py-4 font-bold">Detalle del Producto</th>
+              <th class="px-6 py-4 font-bold">Precio Base</th>
+              <th class="px-6 py-4 font-bold">Tamaños (Multiplicador)</th>
+              <th class="px-6 py-4 font-bold text-center">Stock</th>
+              <th class="px-6 py-4 font-bold">Visibilidad</th>
+              <th class="px-6 py-4 font-bold text-right">Acción</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-neutral-800">
+            @for (product of products(); track product.id) {
+              <tr class="hover:bg-[#1a1a1a] transition-colors group">
+                <td class="px-6 py-4">
+                  <div class="font-bold text-white text-base">{{ product.name }}</div>
+                  <div class="text-neutral-500 text-xs mt-0.5">{{ product.category }}</div>
+                </td>
+
+                <td class="px-6 py-4 font-black text-emerald-400">S/ {{ product.basePrice }}</td>
+
+                <td class="px-6 py-4">
+                  <div class="flex flex-wrap gap-2">
+                    @for (size of product.sizes; track size.label) {
+                      <span
+                        class="px-2 py-1 bg-neutral-900 border border-neutral-700 rounded-lg text-[10px] font-medium text-neutral-300"
+                      >
+                        {{ size.label }}
+                        <span class="text-neutral-500 ml-1">x{{ size.priceMultiplier }}</span>
+                      </span>
+                    }
+                  </div>
+                </td>
+
+                <td class="px-6 py-4 text-center">
+                  @if (product.stockQuantity === 0) {
+                    <div class="flex flex-col items-center">
+                      <span class="text-red-500 font-black text-lg leading-none">0</span>
+                      <span class="text-[10px] uppercase font-bold text-red-500/60">Agotado</span>
+                    </div>
+                  } @else if (product.stockQuantity <= 2) {
+                    <div class="flex flex-col items-center">
+                      <span class="text-yellow-400 font-black text-lg leading-none animate-pulse">{{
+                        product.stockQuantity
+                      }}</span>
+                      <span class="text-[10px] uppercase font-bold text-yellow-500/60"
+                        >¡Últimos!</span
+                      >
+                    </div>
+                  } @else {
+                    <div class="flex flex-col items-center">
+                      <span class="text-emerald-400 font-black text-lg leading-none">{{
+                        product.stockQuantity
+                      }}</span>
+                      <span class="text-[10px] uppercase font-bold text-emerald-500/60"
+                        >Disponibles</span
+                      >
+                    </div>
+                  }
+                </td>
+
+                <td class="px-6 py-4">
+                  @if (product.isActive) {
+                    <span
+                      class="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-tighter text-green-400 bg-green-400/10 px-2 py-1 rounded-md border border-green-400/20"
+                    >
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-green-400 shadow-[0_0_8px_rgba(74,222,128,0.5)]"
+                      ></span>
+                      Público
+                    </span>
+                  } @else {
+                    <span
+                      class="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-tighter text-neutral-500 bg-neutral-900 px-2 py-1 rounded-md border border-neutral-800"
+                    >
+                      <span class="w-1.5 h-1.5 rounded-full bg-neutral-700"></span>
+                      Oculto
+                    </span>
+                  }
+                </td>
+
+                <td class="px-6 py-4 text-right">
+                  <button
+                    class="text-neutral-500 hover:text-white transition-all transform hover:scale-110"
+                    title="Editar Estatua"
+                  >
+                    <svg
+                      class="w-5 h-5 inline"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                      ></path>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+
+  @if (isFormOpen()) {
+    <div
+      class="bg-[#111111] border border-neutral-800 rounded-3xl p-8 max-w-4xl shadow-2xl animate-fade-in"
+    >
+      <h3 class="text-xl font-bold mb-6 border-b border-neutral-800 pb-4">
+        Detalles de la Nueva Estatua
+      </h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div>
+          <label class="block text-xs font-bold text-neutral-500 uppercase tracking-widest mb-2"
+            >Nombre de la pieza</label
+          >
+          <input
+            type="text"
+            [(ngModel)]="newProduct().name"
+            placeholder="Ej. Bowser Rey Koopa"
+            class="w-full bg-[#0a0a0a] border border-neutral-800 text-white rounded-xl px-4 py-3 focus:border-white focus:ring-1 focus:ring-white outline-none transition-all"
+          />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-neutral-500 uppercase tracking-widest mb-2"
+            >Categoría</label
+          >
+          <select
+            [(ngModel)]="newProduct().category"
+            class="w-full bg-[#0a0a0a] border border-neutral-800 text-white rounded-xl px-4 py-3 focus:border-white outline-none transition-all appearance-none cursor-pointer"
+          >
+            @for (cat of categories; track cat) {
+              <option [value]="cat">{{ cat }}</option>
+            }
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-neutral-500 uppercase tracking-widest mb-2"
+            >Precio Base (S/)</label
+          >
+          <input
+            type="number"
+            [(ngModel)]="newProduct().basePrice"
+            placeholder="0.00"
+            class="w-full bg-[#0a0a0a] border border-neutral-800 text-emerald-400 font-bold rounded-xl px-4 py-3 focus:border-white focus:ring-1 focus:ring-white outline-none transition-all"
+          />
+          <p class="text-[10px] text-neutral-500 mt-2">
+            Este será el precio al que se le aplicarán los multiplicadores de tamaño.
+          </p>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-neutral-500 uppercase tracking-widest mb-2"
+            >Unidades en Stock</label
+          >
+          <div class="relative">
+            <span class="absolute left-4 top-3 text-neutral-500">📦</span>
+            <input
+              type="number"
+              min="0"
+              [(ngModel)]="newProduct().stockQuantity"
+              class="w-full bg-[#0a0a0a] border border-neutral-800 text-white font-bold rounded-xl pl-12 pr-4 py-3 focus:border-white focus:ring-1 focus:ring-white outline-none transition-all"
+            />
+          </div>
+          <p class="text-[10px] text-neutral-500 mt-2">
+            Capacidad de producción o inventario físico listo para envío.
+          </p>
+        </div>
+      </div>
+
+      <div class="border border-neutral-800 rounded-2xl p-6 bg-[#0a0a0a] mb-8">
+        <div class="flex justify-between items-center mb-6">
+          <div>
+            <h4 class="font-bold text-white">Variaciones de Tamaño</h4>
+            <p class="text-xs text-neutral-500 mt-1">
+              Configura las escalas y el costo adicional en material de impresión.
+            </p>
+          </div>
+          <button
+            (click)="addSizeRow()"
+            class="text-xs font-bold bg-neutral-900 text-white border border-neutral-700 px-4 py-2 rounded-lg hover:bg-white hover:text-black transition-colors"
+          >
+            + Añadir Tamaño
+          </button>
+        </div>
+
+        <div class="space-y-3">
+          @for (size of newProduct().sizes; track $index; let i = $index) {
+            <div class="flex items-center gap-4">
+              <div class="flex-1">
+                <input
+                  type="text"
+                  [(ngModel)]="size.label"
+                  placeholder="Ej. Escala 1:6 o 25cm"
+                  class="w-full bg-[#111111] border border-neutral-800 text-white rounded-lg px-4 py-2 text-sm focus:border-white outline-none"
+                />
+              </div>
+
+              <div class="w-32 relative">
+                <span class="absolute left-3 top-2 text-neutral-500 text-sm font-bold">x</span>
+                <input
+                  type="number"
+                  step="0.1"
+                  [(ngModel)]="size.priceMultiplier"
+                  class="w-full bg-[#111111] border border-neutral-800 text-white rounded-lg pl-8 pr-4 py-2 text-sm font-mono focus:border-white outline-none"
+                />
+              </div>
+
+              <div class="w-32 text-right text-sm font-bold text-emerald-400">
+                = S/ {{ (newProduct().basePrice || 0) * size.priceMultiplier | number: '1.2-2' }}
+              </div>
+
+              <button
+                [disabled]="(newProduct().sizes?.length || 0) <= 1"
+                (click)="removeSizeRow(i)"
+                class="p-2 text-neutral-500 hover:text-red-400 disabled:opacity-30 transition-colors"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+      <div class="border border-neutral-800 rounded-2xl p-6 bg-[#0a0a0a] mb-8">
+        <div class="mb-6">
+          <h4 class="font-bold text-white">Galería de Imágenes</h4>
+          <p class="text-xs text-neutral-500 mt-1">
+            Añade los enlaces (URLs) de las fotos de la pieza. La primera imagen debe resaltar los
+            detalles de impresión y pintura.
+          </p>
+        </div>
+
+        <div class="flex gap-4 mb-6">
+          <input
+            type="text"
+            [ngModel]="newImageUrl()"
+            (ngModelChange)="newImageUrl.set($event)"
+            (keyup.enter)="addImage()"
+            placeholder="https://ejemplo.com/mifoto.jpg"
+            class="flex-1 bg-[#111111] border border-neutral-800 text-white rounded-xl px-4 py-3 text-sm focus:border-white focus:ring-1 focus:ring-white outline-none"
+          />
+          <button
+            (click)="addImage()"
+            type="button"
+            class="bg-neutral-800 text-white px-6 py-3 rounded-xl text-sm font-bold hover:bg-neutral-700 transition-colors"
+          >
+            Agregar URL
+          </button>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          @for (img of newProduct().images; track img.url; let i = $index) {
+            <div
+              class="relative group rounded-xl overflow-hidden aspect-square bg-[#111111] border-2 transition-colors"
+              [class.border-emerald-500]="img.isPrimary"
+              [class.border-transparent]="!img.isPrimary"
+            >
+              <img [src]="img.url" alt="Preview" class="w-full h-full object-cover" />
+
+              <div
+                class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center gap-3"
+              >
+                @if (!img.isPrimary) {
+                  <button
+                    (click)="setPrimaryImage(i)"
+                    type="button"
+                    class="text-xs font-bold bg-emerald-500 text-black px-4 py-1.5 rounded-full hover:scale-105 transition-transform"
+                  >
+                    Hacer Principal
+                  </button>
+                }
+                <button
+                  (click)="removeImage(i)"
+                  type="button"
+                  class="text-xs font-bold bg-red-500/20 text-red-400 border border-red-500 px-4 py-1.5 rounded-full hover:bg-red-500 hover:text-white transition-all"
+                >
+                  Eliminar
+                </button>
+              </div>
+
+              @if (img.isPrimary) {
+                <div
+                  class="absolute top-2 left-2 bg-emerald-500 text-black text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-widest shadow-lg"
+                >
+                  Principal
+                </div>
+              }
+            </div>
+          }
+        </div>
+
+        @if (newProduct().images?.length === 0) {
+          <div class="text-center py-8 border-2 border-dashed border-neutral-800 rounded-xl">
+            <p class="text-neutral-500 text-sm font-medium">
+              Aún no hay fotos. Agrega una URL arriba para previsualizarla aquí.
+            </p>
+          </div>
+        }
+      </div>
+
+      <div class="flex justify-end gap-4">
+        <button
+          (click)="toggleForm()"
+          class="px-6 py-3 rounded-xl font-bold text-neutral-400 hover:text-white transition-colors"
+        >
+          Cancelar
+        </button>
+        <button
+          (click)="saveProduct()"
+          class="bg-white text-black px-8 py-3 rounded-xl font-bold hover:bg-neutral-200 transition-colors"
+        >
+          Guardar Estatua
+        </button>
+      </div>
+    </div>
+  }
+</div>

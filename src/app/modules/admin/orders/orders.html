@@ -1,0 +1,107 @@
+<div class="flex flex-col gap-8 text-white animate-fade-in">
+  <header>
+    <h2 class="text-3xl font-bold tracking-tight">Gestión de Pedidos</h2>
+    <p class="text-neutral-500 mt-1 font-medium">Controla el flujo de trabajo de Tridi Studio.</p>
+  </header>
+
+  <div class="flex overflow-x-auto pb-2 gap-2 hide-scrollbar">
+    @for (filter of ['ALL', 'PENDING', 'PRINTING', 'PAINTING', 'SHIPPED']; track filter) {
+      <button
+        (click)="setFilter(filter)"
+        class="px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all border"
+        [class.bg-white]="currentFilter() === filter"
+        [class.text-black]="currentFilter() === filter"
+        [class.border-white]="currentFilter() === filter"
+        [class.bg-[#111111]]="currentFilter() !== filter"
+        [class.text-neutral-400]="currentFilter() !== filter"
+        [class.border-neutral-800]="currentFilter() !== filter"
+        [class.hover:border-neutral-600]="currentFilter() !== filter"
+      >
+        {{ translateStatus(filter) }}
+      </button>
+    }
+  </div>
+
+  <div class="bg-[#111111] border border-neutral-800 rounded-3xl overflow-hidden shadow-2xl">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left whitespace-nowrap">
+        <thead class="bg-[#0a0a0a] text-neutral-500 text-xs uppercase tracking-widest">
+          <tr>
+            <th class="px-6 py-4 font-bold">Pedido</th>
+            <th class="px-6 py-4 font-bold">Cliente</th>
+            <th class="px-6 py-4 font-bold">Items</th>
+            <th class="px-6 py-4 font-bold">Total</th>
+            <th class="px-6 py-4 font-bold">Estado de Producción</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-neutral-800">
+          @if (filteredOrders().length === 0) {
+            <tr>
+              <td colspan="5" class="px-6 py-12 text-center text-neutral-500">
+                No hay pedidos en esta categoría actualmente.
+              </td>
+            </tr>
+          }
+
+          @for (order of filteredOrders(); track order.id) {
+            <tr class="hover:bg-[#1a1a1a] transition-colors">
+              <td class="px-6 py-4">
+                <div class="font-mono text-sm font-bold text-white">
+                  #{{ order.id.substring(0, 8) }}
+                </div>
+                <div class="text-neutral-500 text-xs mt-0.5">{{ order.date }}</div>
+              </td>
+
+              <td class="px-6 py-4">
+                <div class="font-bold text-white">{{ order.customerName }}</div>
+                <div class="text-neutral-500 text-xs">{{ order.customerEmail }}</div>
+              </td>
+
+              <td class="px-6 py-4">
+                @for (item of order.items; track item.productName) {
+                  <div class="mb-1 last:mb-0">
+                    <span class="font-bold text-neutral-300">{{ item.quantity }}x</span>
+                    <span class="text-sm font-medium">{{ item.productName }}</span>
+                    <span class="text-xs text-neutral-500 ml-1">({{ item.sizeLabel }})</span>
+                  </div>
+                }
+              </td>
+
+              <td class="px-6 py-4 font-black text-white">S/ {{ order.totalAmount }}</td>
+
+              <td class="px-6 py-4">
+                <div class="relative inline-block w-40">
+                  <select
+                    [value]="order.status"
+                    (change)="updateOrderStatus(order.id, $event)"
+                    class="appearance-none w-full border font-bold text-xs uppercase tracking-wider rounded-xl px-3 py-2 cursor-pointer focus:outline-none focus:ring-1 focus:ring-white transition-colors {{
+                      getStatusColor(order.status)
+                    }}"
+                  >
+                    @for (option of statusOptions; track option) {
+                      <option [value]="option" class="bg-[#111111] text-white">
+                        {{ translateStatus(option) }}
+                      </option>
+                    }
+                  </select>
+                  <div
+                    class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-current opacity-70"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      ></path>
+                    </svg>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

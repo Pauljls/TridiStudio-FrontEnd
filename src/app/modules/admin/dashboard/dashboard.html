@@ -1,0 +1,157 @@
+<div class="flex flex-col gap-10 text-white animate-fade-in">
+  <header class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6">
+    <div>
+      <h2 class="text-3xl font-bold tracking-tight">Visión General</h2>
+      <p class="text-neutral-500 mt-1 font-medium">
+        Bienvenido al taller. Este es el estado actual de Tridi Studio.
+      </p>
+    </div>
+
+    <button
+      routerLink="/admin/catalog"
+      class="bg-white text-black font-bold px-6 py-3 rounded-xl hover:bg-neutral-200 transition-transform active:scale-95 flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 4v16m8-8H4"
+        ></path>
+      </svg>
+      Añadir Producto
+    </button>
+  </header>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div
+      class="bg-[#111111] border border-neutral-800 p-6 rounded-3xl hover:border-neutral-700 transition-colors"
+    >
+      <div class="flex justify-between items-start mb-4">
+        <p class="text-xs font-bold text-neutral-500 uppercase tracking-widest">Ingresos del Mes</p>
+        <span class="p-2 bg-neutral-900 rounded-lg text-neutral-400">💰</span>
+      </div>
+      <p class="text-4xl font-black">S/ {{ stats().monthlyRevenue }}</p>
+    </div>
+
+    <div
+      class="bg-[#111111] border border-neutral-800 p-6 rounded-3xl hover:border-neutral-700 transition-colors"
+    >
+      <div class="flex justify-between items-start mb-4">
+        <p class="text-xs font-bold text-neutral-500 uppercase tracking-widest">Pedidos Activos</p>
+        <span class="p-2 bg-neutral-900 rounded-lg text-neutral-400">📦</span>
+      </div>
+      <p class="text-4xl font-black">{{ stats().activeOrders }}</p>
+    </div>
+
+    <div
+      class="bg-blue-900/10 border border-blue-900/30 p-6 rounded-3xl relative overflow-hidden group"
+    >
+      <div
+        class="absolute inset-0 bg-linear-to-r from-blue-900/0 via-blue-900/10 to-blue-900/0 -translate-x-full group-hover:translate-x-full duration-1000 transition-transform"
+      ></div>
+      <div class="flex justify-between items-start mb-4 relative">
+        <p class="text-xs font-bold text-blue-500 uppercase tracking-widest">Cola de Impresión</p>
+        <span class="p-2 bg-blue-900/20 text-blue-400 rounded-lg">🖨️</span>
+      </div>
+      <p class="text-4xl font-black text-blue-400 relative">
+        {{ stats().printingQueue }} <span class="text-lg font-medium text-blue-700">piezas</span>
+      </p>
+    </div>
+
+    <div
+      class="bg-purple-900/10 border border-purple-900/30 p-6 rounded-3xl relative overflow-hidden group"
+    >
+      <div
+        class="absolute inset-0 bg-linear-to-r from-purple-900/0 via-purple-900/10 to-purple-900/0 -translate-x-full group-hover:translate-x-full duration-1000 transition-transform"
+      ></div>
+      <div class="flex justify-between items-start mb-4 relative">
+        <p class="text-xs font-bold text-purple-500 uppercase tracking-widest">En Pintura</p>
+        <span class="p-2 bg-purple-900/20 text-purple-400 rounded-lg">🎨</span>
+      </div>
+      <p class="text-4xl font-black text-purple-400 relative">
+        {{ stats().paintingQueue }} <span class="text-lg font-medium text-purple-700">piezas</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="bg-[#111111] border border-neutral-800 rounded-3xl overflow-hidden shadow-2xl">
+    <div class="p-6 border-b border-neutral-800 flex justify-between items-center">
+      <h3 class="text-xl font-bold">Pedidos Recientes</h3>
+      <a
+        routerLink="/admin/orders"
+        class="text-sm font-medium text-neutral-400 hover:text-white transition-colors flex items-center gap-1"
+      >
+        Ver todos
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"
+          ></path>
+        </svg>
+      </a>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left whitespace-nowrap">
+        <thead class="bg-[#0a0a0a] text-neutral-500 text-xs uppercase tracking-widest">
+          <tr>
+            <th class="px-6 py-4 font-bold">ID Pedido</th>
+            <th class="px-6 py-4 font-bold">Cliente</th>
+            <th class="px-6 py-4 font-bold">Producto</th>
+            <th class="px-6 py-4 font-bold">Total</th>
+            <th class="px-6 py-4 font-bold">Estado</th>
+            <th class="px-6 py-4 font-bold text-right">Acción</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-neutral-800">
+          @for (order of recentOrders(); track order.id) {
+            <tr class="hover:bg-[#1a1a1a] transition-colors group">
+              <td class="px-6 py-4 font-mono text-sm text-neutral-500">#{{ order.id }}</td>
+
+              <td class="px-6 py-4">
+                <div class="font-bold text-white">{{ order.customer }}</div>
+                <div class="text-neutral-500 text-xs">{{ order.date }}</div>
+              </td>
+
+              <td class="px-6 py-4">
+                <div class="font-medium text-neutral-300">{{ order.product }}</div>
+                <div class="text-neutral-500 text-xs mt-0.5">Tamaño: {{ order.size }}</div>
+              </td>
+
+              <td class="px-6 py-4 font-bold text-white">S/ {{ order.amount }}</td>
+
+              <td class="px-6 py-4">
+                <span
+                  class="px-3 py-1 text-[10px] uppercase tracking-wider font-bold rounded-full border {{
+                    getStatusColor(order.status)
+                  }}"
+                >
+                  {{ translateStatus(order.status) }}
+                </span>
+              </td>
+
+              <td class="px-6 py-4 text-right">
+                <button
+                  class="text-neutral-500 hover:text-white p-2 rounded-lg hover:bg-neutral-800 transition-all opacity-0 group-hover:opacity-100"
+                  title="Ver detalles"
+                >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    ></path>
+                  </svg>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
