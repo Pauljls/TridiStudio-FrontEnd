@@ -11,14 +11,14 @@
   <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
     @for (item of collections; track item.title; let i = $index) {
       <div
-        class="group relative h-80 rounded-3xl overflow-hidden cursor-pointer transition-all hover:-translate-y-2 shadow-xl"
+        class="group relative h-80 rounded-3xl overflow-hidden cursor-pointer shadow-xl"
         appScrollReveal
         [revealDelay]="i * 100"
       >
         <img
           [src]="item.image"
           [alt]="item.title"
-          class="absolute inset-0 w-full h-full object-cover"
+          class="absolute inset-0.5 w-full h-full object-cover object-bottom scale-125 transition-transform duration-500 ease-out group-hover:scale-140"
         />
 
         <div class="absolute inset-0 bg-linear-to-b from-transparent to-black/60"></div>
