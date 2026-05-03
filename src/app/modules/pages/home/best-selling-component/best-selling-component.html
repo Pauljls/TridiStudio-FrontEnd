@@ -1,12 +1,14 @@
 <section class="py-20 px-6 max-w-7xl mx-auto">
-  <div class="text-center mb-16">
+  <div class="text-center mb-16" appScrollReveal [revealDelay]="0">
     <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">Los Más Vendidos</h2>
     <p class="text-neutral-500 max-w-2xl mx-auto">Nuestras estatuas favoritas de la comunidad</p>
   </div>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-    @for (prod of bestSellers; track prod.id) {
-      <app-product-card-component [product]="prod" />
+    @for (prod of bestSellers; track prod.id; let i = $index) {
+      <div appScrollReveal [revealDelay]="i * 100">
+        <app-product-card-component [product]="prod" />
+      </div>
     }
   </div>
 </section>

@@ -2,6 +2,6 @@ export interface Collection {
   title: string;
   description: string;
   count: number;
-  icon: string;
+  image: string;
   gradient: string;
 }

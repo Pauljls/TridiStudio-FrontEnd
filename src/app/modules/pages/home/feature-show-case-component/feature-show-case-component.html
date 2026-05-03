@@ -2,34 +2,37 @@
 
 <section
   class="relative flex min-h-screen items-center justify-center overflow-hidden text-white"
-  style="background-color: #080808"
+  style="background-color: #040404"
 >
-  <!-- ① Textura de ruido fractal -->
+  <!-- Imagen de fondo -->
+  <img
+    src="images/show_case.jpeg"
+    alt=""
+    class="absolute inset-0 z-0 h-full w-full object-cover"
+    style="object-position: center 200%"
+  />
+
+  <!-- Overlay oscuro -->
   <div
-    class="pointer-events-none absolute inset-0 z-0"
-    style="
-      opacity: 0.22;
-      background-image: url('data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20512%20512%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cfilter%20id%3D%22n%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.75%22%20numOctaves%3D%224%22%20stitchTiles%3D%22stitch%22%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20filter%3D%22url(%23n)%22%2F%3E%3C%2Fsvg%3E');
-      background-repeat: repeat;
-      background-size: 200px 200px;
-    "
+    class="pointer-events-none absolute inset-0 z-10"
+    style="background: rgba(0, 0, 0, 0.55)"
   ></div>
 
-  <!-- ② Viñeta perimetral -->
+  <!-- Viñeta perimetral -->
   <div
-    class="pointer-events-none absolute inset-0 z-0"
+    class="pointer-events-none absolute inset-0 z-10"
     style="
-      background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.82) 100%);
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.72) 100%);
     "
   ></div>
 
   <!-- ③ Contenido principal -->
   <div
-    class="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 p-6 lg:grid-cols-2 lg:gap-16 lg:p-24 md:p-12"
+    class="relative z-20 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 p-6 lg:grid-cols-2 lg:gap-16 lg:p-24 md:p-12"
   >
     <!-- Columna izquierda -->
     <div class="flex flex-col gap-8 text-center lg:text-left">
-      <div class="space-y-4">
+      <div class="space-y-4" appScrollReveal [revealDelay]="0">
         <h1 class="text-4xl font-black leading-tight tracking-tight md:text-5xl lg:text-6xl">
           Estatuas 3D de Colección <br class="hidden md:block" />
           <span class="text-neutral-400">Premium</span>
@@ -42,7 +45,7 @@
         </p>
       </div>
 
-      <div class="flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
+      <div class="flex flex-col justify-center gap-4 sm:flex-row lg:justify-start" appScrollReveal [revealDelay]="100">
         <button
           (click)="toCatalog()"
           class="hover:cursor-pointer flex items-center justify-center gap-2 rounded-full bg-white px-8 py-3.5 font-bold text-black shadow-lg transition-all hover:-translate-y-1 hover:bg-neutral-200 hover:shadow-xl"
@@ -61,99 +64,24 @@
         </button>
       </div>
 
-      <div class="grid grid-cols-3 gap-2 border-t border-neutral-800 pt-8 sm:gap-4">
-        <div>
+      <div class="grid grid-cols-3 gap-2 border-t border-neutral-800 pt-8 sm:gap-4" appScrollReveal [revealDelay]="200">
+        <div appScrollReveal [revealDelay]="200">
           <p class="text-xl font-black sm:text-2xl md:text-3xl">500+</p>
           <p class="text-[9px] font-bold uppercase tracking-widest text-neutral-500 sm:text-xs">
             Piezas Creadas
           </p>
         </div>
-        <div>
+        <div appScrollReveal [revealDelay]="300">
           <p class="text-xl font-black sm:text-2xl md:text-3xl">300+</p>
           <p class="text-[9px] font-bold uppercase tracking-widest text-neutral-500 sm:text-xs">
             Clientes Felices
           </p>
         </div>
-        <div>
+        <div appScrollReveal [revealDelay]="400">
           <p class="text-xl font-black sm:text-2xl md:text-3xl">100%</p>
           <p class="text-[9px] font-bold uppercase tracking-widest text-neutral-500 sm:text-xs">
             Hecho a Mano
           </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Columna derecha: cards -->
-    <div class="relative z-10 grid grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
-      <div
-        class="group relative aspect-square overflow-hidden rounded-3xl border border-neutral-800 bg-[#1a1a1a] p-3 transition-all duration-300 hover:-translate-y-1 hover:border-neutral-500 hover:shadow-2xl sm:p-5"
-      >
-        <div
-          class="relative h-[65%] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-[#2a2a2a] to-[#111111] shadow-inner flex items-center justify-center"
-        >
-          <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-          <span
-            class="text-4xl drop-shadow-2xl transition-transform duration-500 group-hover:scale-110 md:text-5xl"
-            >🐉</span
-          >
-        </div>
-        <div class="absolute bottom-4 left-4 sm:bottom-5 sm:left-5">
-          <p class="text-xs font-bold text-neutral-200 sm:text-sm">Goku Super Saiyan</p>
-          <p class="mt-0.5 text-[10px] font-black text-neutral-400 sm:text-xs">S/ 120</p>
-        </div>
-      </div>
-
-      <div
-        class="group relative aspect-square overflow-hidden rounded-3xl border border-neutral-800 bg-[#1a1a1a] p-3 transition-all duration-300 hover:-translate-y-1 hover:border-neutral-500 hover:shadow-2xl sm:p-5"
-      >
-        <div
-          class="relative h-[65%] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-[#2a2a2a] to-[#111111] shadow-inner flex items-center justify-center"
-        >
-          <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-          <span
-            class="text-4xl drop-shadow-2xl transition-transform duration-500 group-hover:scale-110 md:text-5xl"
-            >⚡</span
-          >
-        </div>
-        <div class="absolute bottom-4 left-4 sm:bottom-5 sm:left-5">
-          <p class="text-xs font-bold text-neutral-200 sm:text-sm">Pikachu Detallado</p>
-          <p class="mt-0.5 text-[10px] font-black text-neutral-400 sm:text-xs">S/ 95</p>
-        </div>
-      </div>
-
-      <div
-        class="group relative aspect-square overflow-hidden rounded-3xl border border-neutral-800 bg-[#1a1a1a] p-3 transition-all duration-300 hover:-translate-y-1 hover:border-neutral-500 hover:shadow-2xl sm:p-5"
-      >
-        <div
-          class="relative h-[65%] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-[#2a2a2a] to-[#111111] shadow-inner flex items-center justify-center"
-        >
-          <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-          <span
-            class="text-4xl drop-shadow-2xl transition-transform duration-500 group-hover:scale-110 md:text-5xl"
-            >🎭</span
-          >
-        </div>
-        <div class="absolute bottom-4 left-4 sm:bottom-5 sm:left-5">
-          <p class="text-xs font-bold text-neutral-200 sm:text-sm">Iron Man MK50</p>
-          <p class="mt-0.5 text-[10px] font-black text-neutral-400 sm:text-xs">S/ 150</p>
-        </div>
-      </div>
-
-      <div
-        class="group relative aspect-square overflow-hidden rounded-3xl border border-neutral-800 bg-[#1a1a1a] p-3 transition-all duration-300 hover:-translate-y-1 hover:border-neutral-500 hover:shadow-2xl sm:p-5"
-      >
-        <div
-          class="relative h-[65%] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-[#2a2a2a] to-[#111111] shadow-inner flex items-center justify-center"
-        >
-          <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-          <span
-            class="text-4xl drop-shadow-2xl transition-transform duration-500 group-hover:scale-110 md:text-5xl"
-            >🎮</span
-          >
-        </div>
-        <div class="absolute bottom-4 left-4 sm:bottom-5 sm:left-5">
-          <p class="text-xs font-bold text-neutral-200 sm:text-sm">Mario Bros Classic</p>
-          <p class="mt-0.5 text-[10px] font-black text-neutral-400 sm:text-xs">S/ 85</p>
         </div>
       </div>
     </div>

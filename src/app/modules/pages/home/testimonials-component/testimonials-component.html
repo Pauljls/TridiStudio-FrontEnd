@@ -1,5 +1,5 @@
 <section class="py-20 px-6 bg-black text-white">
-  <div class="text-center mb-16">
+  <div class="text-center mb-16" appScrollReveal [revealDelay]="0">
     <h2 class="text-3xl md:text-4xl font-bold mb-4">Lo Que Dicen Nuestros Clientes</h2>
     <p class="text-neutral-500 text-sm tracking-wide">
       Más de 300 coleccionistas satisfechos en todo Perú
@@ -7,9 +7,10 @@
   </div>
 
   <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-    @for (t of testimonials; track t.name) {
+    @for (t of testimonials; track t.name; let i = $index) {
       <div
         class="bg-neutral-900/40 border border-neutral-800 p-8 rounded-[2rem] flex flex-col gap-6 hover:border-neutral-700 transition-colors"
+        appScrollReveal [revealDelay]="i * 100"
       >
         <div class="flex items-center gap-4">
           <div

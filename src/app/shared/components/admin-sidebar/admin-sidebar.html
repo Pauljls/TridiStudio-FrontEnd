@@ -1,0 +1,65 @@
+<aside
+  class="fixed h-full inset-y-0 left-0 z-50 w-64 bg-[#0a0a0a] border-r border-neutral-900 transition-transform duration-300 md:translate-x-0 md:static md:inset-0"
+  [class.-translate-x-full]="!isSidebarOpen()"
+>
+  <div class="p-4 border-b border-neutral-900 flex justify-between items-center">
+    <h1 class="text-lg font-black tracking-tight uppercase">
+      Tridi <span class="text-neutral-500">Admin</span>
+    </h1>
+    <button (click)="toggleSidebar()" class="md:hidden text-neutral-400 hover:text-white">✕</button>
+  </div>
+
+  <nav class="flex-1 p-3 space-y-1">
+    <a
+      routerLink="dashboard"
+      routerLinkActive="bg-[#1a1a1a] text-white border-neutral-800 shadow-lg"
+      class="hover:cursor-pointer flex items-center gap-3 px-3 py-2 text-sm text-neutral-400 hover:text-white rounded-lg font-bold transition-all border border-transparent"
+    >
+      <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+        ></path>
+      </svg>
+      <span class="truncate">Dashboard</span>
+    </a>
+
+    <a
+      routerLink="orders"
+      routerLinkActive="bg-[#1a1a1a] text-white border-neutral-800 shadow-lg"
+      class="hover:cursor-pointer flex items-center gap-3 px-3 py-2 text-sm text-neutral-400 hover:text-white rounded-lg font-bold transition-all border border-transparent"
+    >
+      <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+        ></path>
+      </svg>
+      <span class="truncate">Pedidos</span>
+    </a>
+
+    <a
+      routerLink="catalog"
+      routerLinkActive="bg-[#1a1a1a] text-white border-neutral-800 shadow-lg"
+      class="hover:cursor-pointer flex items-center gap-3 px-3 py-2 text-sm text-neutral-400 hover:text-white rounded-lg font-bold transition-all border border-transparent"
+    >
+      <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+        ></path>
+      </svg>
+      <span class="truncate">Catálogo</span>
+    </a>
+  </nav>
+
+  <div class="p-3 border-t border-neutral-900">
+    <app-logout-btn></app-logout-btn>
+  </div>
+</aside>

@@ -1,0 +1,173 @@
+<div
+  class="flex items-center justify-center min-h-screen bg-linear-to-br from-slate-950 via-purple-950 to-slate-900 relative overflow-hidden"
+>
+  <!-- Elementos decorativos de fondo -->
+  <div
+    class="absolute top-0 -left-40 w-80 h-80 bg-purple-900 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"
+  ></div>
+  <div
+    class="absolute -bottom-40 right-0 w-80 h-80 bg-cyan-900 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse delay-2000"
+  ></div>
+  <div
+    class="absolute top-1/2 left-1/2 w-96 h-96 bg-slate-800 rounded-full mix-blend-multiply filter blur-3xl opacity-20"
+  ></div>
+
+  <!-- Card principal -->
+  <div class="relative w-full max-w-md">
+    <div
+      class="absolute inset-0 bg-linear-to-r from-purple-600 via-pink-500 to-cyan-500 rounded-2xl p-px opacity-75 blur-sm"
+    ></div>
+
+    <div
+      class="relative bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-10 backdrop-blur-xl"
+    >
+      <!-- Decoración superior -->
+      <div
+        class="absolute -top-1 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-linear-to-r from-purple-500 via-pink-500 to-cyan-500 rounded-full blur opacity-75"
+      ></div>
+
+      <!-- Header -->
+      <div class="text-center mb-10">
+        <div
+          class="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-linear-to-br from-purple-600 to-pink-600 mb-4 shadow-lg"
+        >
+          <span class="text-2xl font-black text-white">T</span>
+        </div>
+        <h1
+          class="text-4xl font-black text-transparent bg-clip-text bg-linear-to-r from-purple-400 via-pink-300 to-cyan-400"
+        >
+          TridiStudio
+        </h1>
+        <p class="text-sm text-slate-400 mt-3 font-light tracking-widest uppercase">
+          Panel Administrativo
+        </p>
+      </div>
+
+      @if (loginError) {
+        <div
+          class="mb-6 p-4 rounded-lg bg-red-900/30 border border-red-700/50 text-red-300 text-sm backdrop-blur"
+        >
+          <div class="flex items-start gap-2">
+            <span class="text-red-500 font-bold mt-0.5">●</span>
+            <span>{{ loginError }}</span>
+          </div>
+        </div>
+      }
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-5">
+        <!-- Campo Usuario -->
+        <div class="group">
+          <label
+            for="user"
+            class="block text-xs font-semibold text-slate-300 mb-3 uppercase tracking-wider"
+          >
+            Usuario o Email
+          </label>
+          <div class="relative">
+            <div
+              class="absolute left-0 top-0 w-1 h-full bg-linear-to-b from-purple-500 to-pink-500 rounded-l-lg opacity-0 group-focus-within:opacity-100 transition-opacity duration-300"
+            ></div>
+            <input
+              id="user"
+              type="text"
+              formControlName="user"
+              placeholder="admin@tridi.studio"
+              class="w-full px-4 py-3 pl-5 bg-slate-800/50 border border-slate-700 rounded-lg text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:bg-slate-800 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300 backdrop-blur"
+              [class.border-red-500/50]="submitted && user?.invalid"
+              [class.bg-red-950/30]="submitted && user?.invalid"
+            />
+          </div>
+          @if (submitted && user?.invalid) {
+            <div class="mt-2 text-xs text-red-400 flex items-center gap-1">
+              <span class="text-red-500">⚠</span>
+              <span>
+                @if (user?.errors?.['required']) {
+                  El usuario es requerido
+                }
+                @if (user?.errors?.['minlength']) {
+                  El usuario debe tener al menos 3 caracteres
+                }
+              </span>
+            </div>
+          }
+        </div>
+
+        <!-- Campo Contraseña -->
+        <div class="group">
+          <label
+            for="password"
+            class="block text-xs font-semibold text-slate-300 mb-3 uppercase tracking-wider"
+          >
+            Contraseña
+          </label>
+          <div class="relative">
+            <div
+              class="absolute left-0 top-0 w-1 h-full bg-linear-to-b from-cyan-500 to-blue-500 rounded-l-lg opacity-0 group-focus-within:opacity-100 transition-opacity duration-300"
+            ></div>
+            <input
+              id="password"
+              type="password"
+              formControlName="password"
+              placeholder="••••••••"
+              class="w-full px-4 py-3 pl-5 bg-slate-800/50 border border-slate-700 rounded-lg text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:bg-slate-800 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all duration-300 backdrop-blur"
+              [class.border-red-500/50]="submitted && password?.invalid"
+              [class.bg-red-950/30]="submitted && password?.invalid"
+            />
+          </div>
+          @if (submitted && password?.invalid) {
+            <div class="mt-2 text-xs text-red-400 flex items-center gap-1">
+              <span class="text-red-500">⚠</span>
+              <span>
+                @if (password?.errors?.['required']) {
+                  La contraseña es requerida
+                }
+                @if (password?.errors?.['minlength']) {
+                  La contraseña debe tener al menos 6 caracteres
+                }
+              </span>
+            </div>
+          }
+        </div>
+
+        <!-- Botón Enviar -->
+        <button
+          type="submit"
+          [disabled]="isLoading || loginForm.invalid"
+          class="w-full mt-8 py-3 px-4 rounded-lg font-semibold text-white text-sm uppercase tracking-wider relative group overflow-hidden transition-all duration-300"
+          [class.opacity-60]="isLoading || loginForm.invalid"
+          [class.cursor-not-allowed]="isLoading || loginForm.invalid"
+        >
+          <!-- Fondo del botón con gradiente -->
+          <div
+            class="absolute inset-0 bg-linear-to-r from-purple-600 via-pink-500 to-cyan-500 transition-all duration-300 group-hover:scale-110 group-hover:blur-sm"
+            [class.blur-sm]="isLoading || loginForm.invalid"
+          ></div>
+
+          <!-- Luz brillante en hover -->
+          <div
+            class="absolute -inset-1 bg-linear-to-r from-purple-600 via-pink-500 to-cyan-500 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500 -z-10"
+          ></div>
+
+          <!-- Contenido del botón -->
+          <div class="relative z-10">
+            @if (isLoading) {
+              <span class="flex items-center justify-center gap-2">
+                <span
+                  class="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"
+                ></span>
+                Iniciando sesión...
+              </span>
+            } @else {
+              Iniciar Sesión
+            }
+          </div>
+        </button>
+      </form>
+
+      <!-- Footer decorativo -->
+      <div class="mt-8 pt-6 border-t border-slate-800/50 text-center text-xs text-slate-500">
+        <p>Acceso restringido a administradores</p>
+      </div>
+    </div>
+  </div>
+</div>
